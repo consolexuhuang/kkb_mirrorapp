@@ -1,0 +1,35 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>index</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content id="cotent">
+  <img [src] = 'srcImg' alt="">
+  <div class="continer" *ngIf="mirrorLinkState">
+
+    <div class="userBox">
+      <div class="imgHeader">
+        <img [src] ="headerImg" />
+      </div>
+      <span>nanndma1</span>
+    </div>
+    
+    <div class="title">选择，并开始你的训练</div>
+    <div class="videoList">
+        <div *ngFor="let item of videoList">
+            <p class="name">{{item.name}}</p>
+            <p class="coach">教练:{{item.coach}}</p>
+        </div>
+    </div>
+  </div>
+
+  <div class="login" *ngIf="!mirrorLinkState">
+      <div class="code">
+        <ngx-qrcode [qrc-value] = 'createdCode'  qrc-class ="aclass"  
+      qrc-errorCorrectionLevel ="L"></ngx-qrcode >
+      </div>
+      <div class="codeTitle">请打开APP扫码登陆</div>
+  </div>
+
+</ion-content>

@@ -1,0 +1,39 @@
+<ion-content id="cotent">
+  <img [src] = 'srcImg' alt="">
+  <div class="continer">
+
+    <div class="userBox">
+      <div class="imgHeader">
+        <img src="https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png" />
+      </div>
+      <span>nanndma1</span>
+    </div>
+    <div class="complateTitle">恭喜你，完成训练！</div>
+
+    <div class="complateData">
+        <div>本次训练</div>
+        <div>
+          <div class="trainData">
+            <div>04:00</div>
+            <div>时长</div>
+          </div>
+          <div class="trainData">
+            <div>{{bpm || 0}}bpm</div>
+            <div>平均心率</div>
+          </div>
+          <div class="trainData">
+            <div>{{cal || 0}}cal</div>
+            <div>消耗热量</div>
+        </div>
+        </div>
+    </div>
+
+    <div echarts [options]="chartOption" class="chart"></div>
+
+    <!-- <div class="back" (click)="backlist()">
+        <ion-icon name="arrow-back" color="light"></ion-icon>
+        <div>返回列表</div>
+    </div> -->
+  </div>
+
+</ion-content>

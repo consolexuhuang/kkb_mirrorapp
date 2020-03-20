@@ -1,0 +1,130 @@
+@function rem($px){
+    @return $px/($designWidth/20) + rem
+  }
+  $designWidth : 750;
+  #cotent{
+      position: relative;
+      >img{
+          width: 100%;
+          height: 100%;
+          position: fixed;
+          filter: brightness(50%) blur(14px);
+  
+      }
+      // >ion-item{
+      //     --background:none;
+      //     --color:#fff;
+      //     // --min-height:130px;
+      //     --padding-bottom:30px;
+      //     --padding-top:30px;
+      //     --padding-end:30px;
+      //     --padding-start:30px;
+  
+      // }
+      >.continer{
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          z-index: 100;
+          padding: 0 rem(60);
+          >.userBox{
+              margin-top: rem(95);
+              box-sizing: border-box;
+              display: flex;
+              align-items: center;
+              padding: rem(30) 0;
+              border-bottom: rem(1) solid #979797;
+              >.imgHeader{
+                  width: rem(130);
+                  height: rem(130);
+                  border-radius: 50%;
+                  display: flex;
+                  justify-content: center;
+                  align-items: center;
+                  border: rem(3) solid #979797;
+                  margin-right: rem(40);
+                  >img{
+                      width: rem(110);
+                      height: rem(110);
+                      border-radius: 50%;
+                  }
+              }
+              >span{
+                  font-size:rem(30);
+                  font-family:PingFangSC-Medium,PingFang SC;
+                  font-weight:500;
+                  color:rgba(255,255,255,1);
+              }
+          }
+          >.complateTitle{
+            font-size:rem(56);
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            line-height:rem(56);
+            margin-top: rem(40);
+          }
+          >.complateData{
+              width: 100%;
+              margin-top: rem(120);
+              padding-top: rem(40);
+              >:first-child{
+                font-size:rem(30);
+                font-family:PingFangSC-Medium,PingFang SC;
+                font-weight:500;
+                color:rgba(221,221,221,1);
+                line-height:rem(30);
+              }
+              >:last-child{
+                margin-top: rem(40);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                >.trainData{
+                   text-align: center;
+                   >:nth-child(1){
+                        font-size:rem(46);
+                        font-family:PingFangSC-Semibold,PingFang SC;
+                        font-weight:600;
+                        color:rgba(255,255,255,1);
+                        line-height:rem(46);
+                        margin-bottom: rem(36);
+                   }
+                   >:nth-child(2){
+                        font-size:rem(26);
+                        font-family:PingFangSC-Medium,PingFang SC;
+                        font-weight:500;
+                        color:rgba(153,153,153,1);
+                        line-height:rem(26)
+                   }
+                }
+              }
+              
+          }
+          >.chart{
+              margin-top: rem(128);
+              height: rem(500);
+          }
+          >.back{
+                width: rem(630);
+                height: rem(120);
+                background:rgba(51,51,51,1);
+                border-radius:rem(12);
+                margin: rem(80) auto rem(40);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              >ion-icon{
+                  font-size: rem(48);
+                  margin-right: rem(24);
+              }
+              >div{
+                font-size:rem(38);
+                font-family:PingFangSC-Medium,PingFang SC;
+                font-weight:500;
+                color:rgba(255,255,255,1);
+                line-height:rem(38);
+              }
+          }
+      }
+  }

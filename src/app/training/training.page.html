@@ -1,0 +1,85 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>training</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <vg-player class="player" (onPlayerReady)="onPlayerReady($event)">
+    <vg-scrub-bar class="videoBar">
+      <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+      <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+   </vg-scrub-bar>
+
+    <vg-overlay-play></vg-overlay-play>
+      <!-- <vg-controls>
+            <vg-play-pause></vg-play-pause>
+            <vg-scrub-bar>
+                <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+            </vg-scrub-bar>
+            <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+
+            <vg-mute></vg-mute>
+
+            <vg-fullscreen></vg-fullscreen>
+      </vg-controls> -->
+
+      <video [vgMedia]="media" #media [vgMaster]="true" id="masterVideo" preload="auto">
+        <source [src]="videoSrc" type="video/mp4">
+      </video>
+
+      <div class="vidCon">
+         <div class="dataBPMBox">
+            <div class="BPMLeft">
+                <div class="BPMTitle">
+                    <ion-icon slot="start" name="heart" color="danger"></ion-icon>
+                    <ion-text color="light">BPM</ion-text>
+                </div>
+                <div class="BPMData">{{currentBPM}}</div>
+            </div>
+            <div class="BPMRight">
+               <div class="progress" #myProgress>
+                   <div class="currentPoint" [ngStyle]="currentReptObj"></div> 
+                   <div class="targetPoint" [ngStyle]="progressReptObj" >
+                    <div><span *ngIf="progressReptObj.width">TARGET</span></div>
+                   </div>
+               </div>
+            </div>
+         </div>
+
+         <div class="dataBPMBox">
+            <div class="BPMLeft">
+                <div class="BPMTitle">
+                    <ion-icon slot="start" name="flame" color="danger"></ion-icon>
+                    <ion-text color="light">CAL</ion-text>
+                </div>
+                <div class="BPMData" [ngStyle]="{fontSize: changeFontSize}">{{totalCal}}</div>
+            </div>
+            <div class="BPMRight">
+              <div class="progress_calgrey" #myProgressCal>
+                  <div class="progress_cal" [ngStyle]="currentCalObj">
+                     <div class="currentPoint"></div>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="userList">
+              <div class="userItem" *ngFor="let item of userList">
+                <img src="https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png" />
+                <div>{{item.name}}</div>
+              </div>
+              <div class="userCount">
+                  <ion-icon slot="start" name="person" color='light'></ion-icon>
+                  <ion-text color="light">90</ion-text>
+              </div>
+          </div>
+      </div>
+      <div class="timeDown">
+         <span [ngClass]="{animate: timeDown == item}" *ngFor="let item of [5,4,3,2,1,0]">{{timeDown}}</span>
+
+      </div>
+  </vg-player>
+
+</ion-content>
