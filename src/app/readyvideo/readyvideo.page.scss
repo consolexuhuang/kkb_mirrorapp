@@ -1,0 +1,73 @@
+@function rem($px){
+    @return $px/($designWidth/24) + rem
+  }
+  $designWidth : 750;
+ion-content{
+    --background: rgba(51, 51, 51, 1) !important;
+    >.continer{
+        padding: rem(150) rem(60) rem(80);
+        box-sizing: border-box;
+        >.videoTitle{
+            font-size:rem(40);
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            line-height:rem(50);
+        }
+        >.videoName{
+            font-size:rem(34);
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            line-height:rem(40);
+            margin: rem(8) auto rem(40);
+        }
+        >.videoType{
+            display: flex;
+            flex-wrap: wrap;
+
+            >.typeItem{
+                min-width:rem(100);
+                // height:rem(48);
+                background:rgba(71,72,78,1);
+                border-radius:rem(12);
+                line-height: rem(48);
+                margin: 0 rem(30) rem(20) 0;
+                color: #ffffff;
+                text-align: center;
+                padding: 0 rem(10);
+                font-size: rem(30);
+            }
+        }
+        >img{
+            width:100%;
+            height:rem(380);
+            background:rgba(216,216,216,1);
+            border-radius:rem(24);
+            margin: rem(10) auto rem(40);
+            // display: block;
+        }
+        >.cont{
+            font-size:rem(30);
+            font-family:PingFangSC-Regular,PingFang SC;
+            font-weight:400;
+            color:rgba(255,255,255,1);
+            line-height:rem(43);
+        }
+        >.btn{
+            width:100%;
+            height:rem(120);
+            background:rgba(119,118,123,1);
+            border-radius:rem(16);
+            text-align: center;
+            font-size:rem(38);
+            font-family:PingFangSC-Medium,PingFang SC;
+            font-weight:500;
+            color:rgba(255,255,255,1);
+            line-height:rem(120);
+            margin-top: rem(170);
+        }
+    }
+       
+
+}

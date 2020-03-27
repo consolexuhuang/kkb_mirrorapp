@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'traincomplete',
     loadChildren: () => import('./traincomplete/traincomplete.module').then( m => m.TraincompletePageModule)
+  },
+  {
+    path: 'readyvideo',
+    loadChildren: () => import('./readyvideo/readyvideo.module').then( m => m.ReadyvideoPageModule)
   }
 ];
 @NgModule({

@@ -20,6 +20,10 @@ import {bluebooth} from '../providers/bulebooth'
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
 import { NgxQRCodeModule } from 'ngx-qrcode2';
+import { HttpClientModule } from '@angular/common/http'
+import{CommonService} from '../services/common.service';
+import { VgBufferingModule } from 'videogular2/compiled/buffering'
+
 
 
 @NgModule({
@@ -27,13 +31,16 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
   entryComponents: [],
   imports: [
     BrowserModule, 
+    HttpClientModule,
     IonicModule.forRoot(),
     AppRoutingModule,   
-    NgxQRCodeModule 
+    NgxQRCodeModule,
+    VgBufferingModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    CommonService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     nativeService,
     Toast,

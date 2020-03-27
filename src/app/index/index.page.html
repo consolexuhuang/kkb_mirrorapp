@@ -6,6 +6,7 @@
 
 <ion-content id="cotent">
   <img [src] = 'srcImg' alt="">
+  <!-- <div class="mask"></div> -->
   <div class="continer" *ngIf="mirrorLinkState">
 
     <div class="userBox">
@@ -13,23 +14,46 @@
         <img [src] ="headerImg" />
       </div>
       <span>nanndma1</span>
+      <!-- <ion-icon slot="end" name="settings-outline" color="light" size="40"></ion-icon> -->
     </div>
     
-    <div class="title">选择，并开始你的训练</div>
-    <div class="videoList">
+    
+    <ion-segment (ionChange)="segmentChanged($event)" color="light" value="1" >
+      <ion-segment-button value="1">
+        <ion-label [ngStyle]="{color: currentTabState == 1 ? '#fff': '#CCCCCC'}">燃脂</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="2">
+        <ion-label [ngStyle]="{color: currentTabState == 2 ? '#fff': '#CCCCCC'}">塑形</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="3">
+        <ion-label [ngStyle]="{color: currentTabState == 3 ? '#fff': '#CCCCCC'}">伸展</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="4">
+        <ion-label [ngStyle]="{color: currentTabState == 4 ? '#fff': '#CCCCCC'}">直播课程</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+
+   <div class="videoList">
         <div *ngFor="let item of videoList">
-            <p class="name">{{item.name}}</p>
-            <p class="coach">教练:{{item.coach}}</p>
+            <div class="name">{{item.name}}</div>
+            <div class="coach">教练:{{item.coach}}</div>
+            <div class="info"><span>时长:4:00</span><span>消耗400cal</span> </div>
         </div>
     </div>
   </div>
 
   <div class="login" *ngIf="!mirrorLinkState">
-      <div class="code">
-        <ngx-qrcode [qrc-value] = 'createdCode'  qrc-class ="aclass"  
-      qrc-errorCorrectionLevel ="L"></ngx-qrcode >
+      <img class="logo" alt="" src="https://img.cdn.powerpower.net/5e7d99b4e4b0f9ecb3a0657d.png">
+      <div class="title">Hi～欢迎来到Mirror</div>
+      <div class="borderBoxWhite">
+        <div class="borderBox">
+            <div class="code">
+              <ngx-qrcode [qrc-value] = 'createdCode'  qrc-class ="aclass"  
+            qrc-errorCorrectionLevel ="L"></ngx-qrcode >
+            </div>
+            <div class="codeTitle">请打开APP扫码登陆</div>
+        </div>
       </div>
-      <div class="codeTitle">请打开APP扫码登陆</div>
   </div>
 
 </ion-content>

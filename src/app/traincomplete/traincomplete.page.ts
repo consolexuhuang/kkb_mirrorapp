@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,NgZone} from '@angular/core';
 import { NavController} from '@ionic/angular'; 
 import {bluebooth} from '../../providers/bulebooth'
 import VConsole from 'vconsole';
@@ -16,6 +16,7 @@ export class TraincompletePage implements OnInit {
   constructor(
     public nav: NavController,
     private blue : bluebooth,
+    private ngZone: NgZone,
     // private utils: utils,
   ) { }
   srcImg:any = utils.androidBackground
@@ -115,7 +116,9 @@ export class TraincompletePage implements OnInit {
         if(message.type == 'action'){
           if(message.action == 20){ //显示列表
             that.blue.unRegisterListener('complete')
-            that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
+            that.ngZone.run(() => {
+              that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
+            })
           }
         }
       //  alert("receive command:  " + JSON.stringify(message))

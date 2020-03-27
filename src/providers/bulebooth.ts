@@ -142,4 +142,16 @@ export class bluebooth {
     }
 
   }
+  //指令
+  sendMessage(cmd:any, arg1:any = null) {
+    cordova.exec(callSuccess,callFail,"jjBandsPlugin","sendMessage",[cmd, arg1]);
+    function callSuccess(message:any) {
+      console.log('sendMessage success',message)
+      //  alert("completeTraining success:  " + message);
+    }
+    //失败后回调
+    function callFail(message:any) {
+        alert("sendMessage fail:  " + message);
+    }
+  }
 }

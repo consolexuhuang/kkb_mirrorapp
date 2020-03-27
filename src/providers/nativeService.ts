@@ -1,7 +1,7 @@
 import { AlertController, LoadingController, Platform, ToastController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
-import { Toast } from '@ionic-native/toast/ngx';
+// import { Toast } from '@ionic-native/toast/ngx';
 import { Injectable } from '@angular/core';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
@@ -13,7 +13,7 @@ export class nativeService {
     private toastCtrl: ToastController,
     private alertCtrl: AlertController,
     private loadingCtrl: LoadingController,
-    private toast: Toast,
+    // private toast: Toast,
     private file : File,
     private imagePicker: ImagePicker,
     private camera: Camera,
@@ -65,20 +65,18 @@ export class nativeService {
   /**
    * 统一调用此方法显示提示信息
    * @param message 信息内容
+   * @param classStyle 主题颜色  primary 天蓝， secondary 深蓝，danger，light，dark
    * @param duration 显示时长
    */
-  async showToast(message = '操作完成', duration = 2000) {
-    if (this.isMobile()) {
-      this.toast.show(message, String(duration), 'center').subscribe();
-    } else {
-      const toastCtrl = await this.toastCtrl.create({
-        message,
-        duration,
-        position: 'middle',
-        // showCloseButton: false
-      })
-      await toastCtrl.present()
-    }
+  async showToast(message = '操作完成', classStyle:string,duration = 2000,) {
+    const toastCtrl = await this.toastCtrl.create({
+      message,
+      duration,
+      position: 'top',
+      color:classStyle,
+      // showCloseButton: false
+    })
+    await toastCtrl.present()
   }
 
     /**

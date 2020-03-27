@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef,ViewChild} from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef,ViewChild, NgZone} from '@angular/core';
 import { NavController} from '@ionic/angular'; //弹框
 
 
@@ -6,9 +6,12 @@ import {VgAPI} from 'videogular2/compiled/core'
 import {bluebooth} from '../../providers/bulebooth'
 import VConsole from 'vconsole';
 import { utils } from '../../providers/utils';
+import { File } from '@ionic-native/file/ngx';
+import { from } from 'rxjs';
 
 var vConsole = new VConsole();
 declare var cordova:any
+// (window as any).requestFileSystem
 
 @Component({
   selector: 'app-training',
@@ -16,7 +19,9 @@ declare var cordova:any
   styleUrls: ['./training.page.scss'],
 })
 export class TrainingPage implements OnInit {
-  videoSrc: string = '../assets/vid.mp4'
+  // videoSrc: string = '../assets/vid.mp4'
+  videoSrc: string = 'https://img.cdn.powerpower.net/vid2.mp4'
+  
   preload:string = 'auto';
   api:VgAPI;
   userList:Array<Object> = [
@@ -75,13 +80,15 @@ export class TrainingPage implements OnInit {
     "left":0,
     "width":0
   }
-
+  collectArr: any 
   @ViewChild("myProgress", {static:true}) myprogress: any;
   @ViewChild("myProgressCal", {static:true}) myprogressCal: any;
   constructor(
     private ref:ChangeDetectorRef,
     public nav: NavController,
     private blue : bluebooth,
+    private file : File,
+    private ngZone: NgZone,
   ) { }
 
   rem($px){
@@ -111,13 +118,22 @@ export class TrainingPage implements OnInit {
   }
   onPlayerReady(api:VgAPI) {
     this.api = api;
+    
     // 监听监听播放结束
     console.log(this.api)
+    // setInterval(()=>{
+    //   console.log('canPlayThrough--',this.api.canPlayThrough)
+    // },1000)
     // 视频play
     // this.api.getDefaultMedia().subscriptions.play.subscribe(
     //   () => {
     //   }
     // );
+    // this.api.getDefaultMedia().subscriptions.canPlayThrough.subscribe(
+    //   (a)=>{
+    //     console.log('canPlayThrough',a)
+    //   }
+    // )
     //视频over
     this.api.getDefaultMedia().subscriptions.ended.subscribe(
       () => {
@@ -126,10 +142,14 @@ export class TrainingPage implements OnInit {
           utils.sessionStorageSetItem('allCal',this.totalCal)
           this.blue.completeTraining() //回调完成
           this.blue.Stop()         //回调心率监听
+          // this.blue.sendMessage(8)
           this.api.getDefaultMedia().currentTime = 0 //视频重启
           this.nav.navigateForward('/traincomplete')
       }
     );
+  }
+  ngAfterContentInit(){
+    // this.onPlayerReady()
   }
 
   progressRept(leftData:number, widthData:number = null, prosressWidth:number, progressRange:number,){
@@ -195,8 +215,9 @@ export class TrainingPage implements OnInit {
 
   ngOnInit() {
     this.StartCommandListener()  //监听回调
-    this.blue.Start(true)  //手环数据监听回调
+    // this.blue.Start(false)  //手环数据监听回调 true不接受三轴 false接受
     this.timeDownMethod()  //视频倒计时
+
   };
   ngAfterViewInit(){
     this.myprogress.nativeElement.style.width = this.rem(this.BPMWidth)
@@ -206,30 +227,52 @@ export class TrainingPage implements OnInit {
   //开始接收
   StartCommandListener() {
     let that = this
+    let collectArr:any = {
+      three:[],
+      heart:[]
+    }
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['training']);
     function callSuccess(message:any) {
-      console.log("receive command-training:  ", message)
+      // console.log("receive command-training:  ", message)
        if(message.type == 'action'){
          //  监听暂停
          if(message.action == 22){ //暂停
            that.api.pause()
+           console.log('暂停：',collectArr)
+           that.createAndwriteFile(JSON.stringify(collectArr))
          }
          //  监听继续
          if(message.action == 23){ //继续
            that.api.play()
          }
          //  监听返回
-         if(message.action == 20){ //返回
+         if(message.action == 20){ //显示视频列表
             that.blue.Stop()
             that.api.getDefaultMedia().currentTime = 0 //视频重启
-            that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
+            that.ngZone.run(() => {
+              that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
+            })
          }
        }
        if(message.type == 'data'){ 
-          // 监听收集心率, cal
-          if(message.datatype == 1){
+        //  console.log('training:heart-',message)
+          // 监听收集心率, cal, xyz, a
+          if(message.datatype == 1) {
             that.copmuteCurrBPM(message.heart)
             that.computeCal(message.cal)
+            let objItem2 = {}
+            objItem2['time'] = that.api.currentTime.toFixed(2)
+            objItem2['bpm'] = message.heart || 0
+            collectArr.heart.push(objItem2)
+          }
+          if(message.datatype == 3 && that.api.currentTime>0){
+            let objItem = {}
+            objItem['time'] = that.api.currentTime.toFixed(2)
+            // objItem['bpm'] = message.heart || '0'
+            objItem['x'] = message.x || 0
+            objItem['y'] = message.y || 0
+            objItem['z'] = message.z || 0
+            collectArr.three.push(objItem)
           }
        }
        if(message.type == 'stateChange'){
@@ -248,4 +291,13 @@ export class TrainingPage implements OnInit {
     }
   }
 
+  //创建并写入文件
+  createAndwriteFile(text:any){
+    this.file.checkFile('file:///storage/emulated/0/', 'collect.txt').then(()=>{
+      this.file.writeFile('file:///storage/emulated/0/', 'collect.txt', text, { append: false, replace: true })
+    }).catch(() => {
+      this.file.createFile('file:///storage/emulated/0/', 'collect.txt', true)
+      this.file.writeFile('file:///storage/emulated/0/', 'collect.txt', text, { append: false, replace: true })
+    })
+  }
 }
