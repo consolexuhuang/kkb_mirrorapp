@@ -141,9 +141,9 @@ export class TrainingPage implements OnInit {
           utils.sessionStorageSetItem('allCollectBpm',this.allBpmCollect)
           utils.sessionStorageSetItem('allCal',this.totalCal)
           this.blue.completeTraining() //回调完成
-          this.blue.Stop()         //回调心率监听
-          // this.blue.sendMessage(8)
+          this.blue.Stop()  //暂停监听
           this.api.getDefaultMedia().currentTime = 0 //视频重启
+          this.blue.unRegisterListener('training')
           this.nav.navigateForward('/traincomplete')
       }
     );
@@ -215,7 +215,6 @@ export class TrainingPage implements OnInit {
 
   ngOnInit() {
     this.StartCommandListener()  //监听回调
-    // this.blue.Start(false)  //手环数据监听回调 true不接受三轴 false接受
     this.timeDownMethod()  //视频倒计时
 
   };
@@ -233,7 +232,7 @@ export class TrainingPage implements OnInit {
     }
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['training']);
     function callSuccess(message:any) {
-      // console.log("receive command-training:  ", message)
+      //  console.log("receive command-training:  ", message)
        if(message.type == 'action'){
          //  监听暂停
          if(message.action == 22){ //暂停
@@ -247,11 +246,11 @@ export class TrainingPage implements OnInit {
          }
          //  监听返回
          if(message.action == 20){ //显示视频列表
-            that.blue.Stop()
             that.api.getDefaultMedia().currentTime = 0 //视频重启
             that.ngZone.run(() => {
               that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
             })
+            that.blue.unRegisterListener('training')
          }
        }
        if(message.type == 'data'){ 
@@ -281,7 +280,7 @@ export class TrainingPage implements OnInit {
            utils.localStorageRemoveItem('videoList')
            alert('连接已断开')
         }
-      }
+       }
       //  alert("receive command:  " + JSON.stringify(message));
 
     }

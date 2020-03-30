@@ -20,11 +20,12 @@ export class ReadyvideoPage implements OnInit {
     private ngZone: NgZone,
     private ref: ChangeDetectorRef,
   ) { }
-  
+  srcImg:any = utils.androidBackground
+
   ionViewWillEnter(){
     console.log('ionViewWillEnter-readyvideo------')
     this.StartCommandListener()
-    this.blue.Start(false)  //手环数据监听回调 true不接受三轴 false接受
+    // this.blue.Start(false)  //手环数据监听回调 true不接受三轴 false接受
   }
   ngOnInit() {
     console.log('mirrorVideoState--init')
@@ -53,7 +54,7 @@ export class ReadyvideoPage implements OnInit {
        }
        if(message.type == 'data'){ 
           // 监听收集心率, cal, xyz, a 1:bpm  3:three
-          if(message.datatype == 3){
+          if(message.datatype == 1){
               that.blue.sendMessage(5) //第一次接受心率成功
           }
        }

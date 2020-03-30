@@ -6,7 +6,7 @@
 
 <ion-content id="cotent">
   <img [src] = 'srcImg' alt="">
-  <!-- <div class="mask"></div> -->
+  <div class="mask"></div>
   <div class="continer" *ngIf="mirrorLinkState">
 
     <div class="userBox">
@@ -18,7 +18,7 @@
     </div>
     
     
-    <ion-segment (ionChange)="segmentChanged($event)" color="light" value="1" >
+    <ion-segment (ionChange)="segmentChanged($event)" color="light" value="1">
       <ion-segment-button value="1">
         <ion-label [ngStyle]="{color: currentTabState == 1 ? '#fff': '#CCCCCC'}">燃脂</ion-label>
       </ion-segment-button>
@@ -33,7 +33,7 @@
       </ion-segment-button>
     </ion-segment>
 
-   <div class="videoList">
+    <div class="videoList">
         <div *ngFor="let item of videoList">
             <div class="name">{{item.name}}</div>
             <div class="coach">教练:{{item.coach}}</div>

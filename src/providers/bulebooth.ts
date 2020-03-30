@@ -89,16 +89,20 @@ export class bluebooth {
   }
   // 获取蓝牙信息
   getBandsInfo() {
-    cordova.exec(callSuccess,callFail,"jjBandsPlugin","getBandsInfo",null);
-    function callSuccess(message:any) {
-       console.log('getBandsInfo success:',message)
-      //  alert("getBandsInfo success:  " + JSON.stringify(message));
-    }
-    //失败后回调
-    function callFail(message:any) {
-        alert("getBandsInfo fail:  " + message);
-    }
-
+    let that = this
+      cordova.exec(callSuccess,callFail,"jjBandsPlugin","getBandsInfo",null);
+      function callSuccess(message:any) {
+         if(message.list[0].status == 1){
+           that.Start(false)
+             //手环数据监听回调 true不接受三轴 false接受
+         }
+         console.log('getBandsInfo success:',message)
+        //  alert("getBandsInfo success:  " + JSON.stringify(message));
+      }
+      //失败后回调
+      function callFail(message:any) {
+          alert("getBandsInfo fail:  " + message);
+      }
   }
   //获取镜子信息
   // getMirrorName() {

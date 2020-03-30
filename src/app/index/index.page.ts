@@ -50,8 +50,9 @@ export class IndexPage implements OnInit {
   }
   ionViewWillEnter(){
     console.log('ionViewWillEnter-index------')
-    // this.blue.Start(false)  //手环数据监听回调 true不接受三轴 false接受
     this.StartCommandListener()
+    this.blue.getBandsInfo() //获取手环信息
+
   }
   ngOnInit() {
     // var url='';
@@ -59,7 +60,6 @@ export class IndexPage implements OnInit {
     // })
     console.log('index-init',this.file)
     this.showMirrorCode()
-    this.blue.getBandsInfo() //获取手环信息
     if(this.route.snapshot.queryParams.id == 'list'){ //监听返回页面的参数
       this.mirrorLinkState = true
       this.videoList = utils.localStorageGetItem('videoList')

@@ -3,10 +3,29 @@
   }
   $designWidth : 750;
 ion-content{
-    --background: rgba(51, 51, 51, 1) !important;
+    position: relative;
+    // --background: rgba(51, 51, 51, 1) !important;
+    >img{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        filter: blur(8px);
+
+    }
+    .mask{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        z-index: 10;
+        opacity: .5;
+        background: #000000;
+    //    background: rgba(0,0,0,.5);
+    }
     >.continer{
         padding: rem(150) rem(60) rem(80);
         box-sizing: border-box;
+        position: relative;
+        z-index: 100;
         >.videoTitle{
             font-size:rem(40);
             font-family:PingFangSC-Medium,PingFang SC;
