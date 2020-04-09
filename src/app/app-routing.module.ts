@@ -4,7 +4,7 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    // loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    // loadChildren: () => import('./training2/training2.module').then( m => m.Training2PageModule)
     loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
   },
   {
@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'readyvideo',
     loadChildren: () => import('./readyvideo/readyvideo.module').then( m => m.ReadyvideoPageModule)
+  },
+  {
+    path: 'training2',
+    loadChildren: () => import('./training2/training2.module').then( m => m.Training2PageModule)
   }
 ];
 @NgModule({

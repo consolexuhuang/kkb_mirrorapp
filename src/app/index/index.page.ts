@@ -28,7 +28,7 @@ export class IndexPage implements OnInit {
   ]
   createdCode: any = ''
   mirrorLinkState:boolean = false
-  currentTabState:any = '1'
+  currentTabState:any = 1
   constructor(
     public nativeService: nativeService,
     public nav: NavController,
@@ -52,7 +52,6 @@ export class IndexPage implements OnInit {
     console.log('ionViewWillEnter-index------')
     this.StartCommandListener()
     this.blue.getBandsInfo() //获取手环信息
-
   }
   ngOnInit() {
     // var url='';
@@ -73,6 +72,7 @@ export class IndexPage implements OnInit {
     function callSuccess(message:any) {
       console.log("receive command-index:  ", message)
       if(message.type == 'action'){
+        // console.log("receive command-index:  ", message)
          //监听列表回调(镜子连接成功，显示列表)
          if(message.action == 20){
             that.mirrorLinkState = true
@@ -86,6 +86,23 @@ export class IndexPage implements OnInit {
             that.ngZone.run(() => {
               that.nav.navigateForward('/readyvideo')
             })
+         }
+         //切换tab
+         if(message.action == 30){
+            that.currentTabState = 1
+            that.updataSyncFun()
+         }
+         if(message.action == 31){
+           that.currentTabState = 2
+           that.updataSyncFun()
+         }
+         if(message.action == 32){
+           that.currentTabState = 3
+           that.updataSyncFun()
+         }
+         if(message.action == 33){
+           that.currentTabState = 4
+           that.updataSyncFun()
          }
        }
 

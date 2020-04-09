@@ -1,9 +1,11 @@
 @function rem($px){
-    @return $px/($designWidth/20) + rem
-  }
+  @return $px/7.5 + vw
+}
   $designWidth : 750;
   #cotent{
       position: relative;
+      width: 100%;
+      height: 100%;
       >img{
           width: 100%;
           height: 100%;

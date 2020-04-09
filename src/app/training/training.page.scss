@@ -1,203 +1,227 @@
 @function rem($px){
-  @return $px/($designWidth/20) + rem
+    @return $px/7.5 + vw
 }
 $designWidth : 750;
-.videoBar{
-    position: absolute;
+#content{
     width: 100%;
-    top: 0;
-}
-.vidCon{
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    padding-bottom: rem(10);
-    >.dataBPMBox{
-        padding: 0 rem(40);
-        box-sizing: border-box;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
+    height: 100%;
+    position: relative;
+    .videoBar{
+        position: absolute;
         width: 100%;
-        margin-bottom: rem(60);
-        >.BPMLeft{
-            width: 15%;
-            margin-right: rem(3);
-            >.BPMTitle{
-                display: flex;
-                align-items: flex-end;
-                ion-text{
-                   font-size: rem(24);
-                }
-                ion-icon{
-                   font-size: rem(26);
-                   margin-right: rem(4);
-                }
-            }
-            >.BPMData{
-                font-size:rem(48);
-                font-family:PingFangSC-Semibold,PingFang SC;
-                // font-weight:600;
-                color:rgba(255,255,255,1);
-                line-height:rem(48);
-            }
+        top: 0;
+        vg-volume{
+            width: 100%;
+            padding: 0 rem(100);
+            // margin-top: rem(40);
         }
-        >.BPMRight{
-            >.progress{
-                // width:rem(600);
-                height:rem(10);
-                background:linear-gradient(90deg,rgba(255,210,4,1) 0%,rgba(255,112,59,1) 100%);
-                border-radius:rem(5);
-                position: relative;
-                >.currentPoint{
-                    width:rem(30);
-                    height:rem(30);
-                    background:#FF4848;
-                    border-radius:50%;
-                    border: rem(5) solid #fff;
-                    position: absolute;
-                    left: - rem(15);
-                    top: 0;
-                    bottom: 0;
-                    margin: auto;
-                    z-index: 200;
-                    transition: all .8s ease-in;
-                }
-                >.targetPoint{
-                    // overflow: hidden;
-                    // width:rem(136);
-                    height:rem(50);
-                    background:linear-gradient(90deg,rgba(251,176,91,1) 0%,rgba(227,70,51,1) 100%);
-                    border-radius:rem(25);
-                    position: absolute;
-                    // right: rem(100);
-                    top: 0;
-                    bottom: 0;
-                    margin: auto;
-                    transition: all 1s ease-in;
-                    >div{
-                        position: relative;
-                        >span{
-                            min-width: rem(130);
-                            font-size:rem(24);
-                            font-family:PingFangSC-Medium,PingFang SC;
-                            font-weight:500;
-                            color:rgba(255,255,255,1);
-                            line-height:rem(24);
-                            position: absolute;
-                            top: - rem(30);
-                            left: 0;
-                            right: 0;
-                            margin: auto;
-                            text-align: left;
+    }
+    .videoTime{
+        position: absolute;
+        top: rem(100);
+        left: rem(50);
+        font-size: rem(26);
+    }
+    .vidCon{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        padding-bottom: rem(10);
+        >.dataBPMBox{
+            padding: 0 rem(30);
+            box-sizing: border-box;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-bottom: rem(40);
+            >.BPMLeftBox{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                >.BPMLeft{
+                    margin-right: rem(30);
+                    >.BPMTitle{
+                        // display: flex;
+                        // align-items: flex-end;
+                        ion-text{
+                           font-size: rem(24);
+                        }
+                        ion-icon{
+                           font-size: rem(26);
+                           margin-right: rem(4);
                         }
                     }
+                    >.BPMData{
+                        font-size:rem(48);
+                        font-family:PingFangSC-Semibold,PingFang SC;
+                        // font-weight:600;
+                        color:rgba(255,255,255,1);
+                        line-height:rem(48);
+                    }
+                }
+                :last-child{
+                    margin-right: 0;
                 }
             }
-            >.progress_calgrey{
-                height:rem(10);
-                border-radius:rem(5);
-                position: relative;
-                background: #fff;
-                >.progress_cal{
-                    // width: 100%;
-                    height:100%;
-                    background:linear-gradient(90deg,rgba(54,226,163,1) 0%,rgba(15,192,215,1) 100%);
+            >.BPMRight{
+                >.progress{
+                    // width:rem(600);
+                    height:rem(10);
+                    background:linear-gradient(90deg,rgba(95,129,243,1) 0%,rgba(68,211,159,1) 28%,rgba(253,255,0,1) 56%,rgba(255,143,38,1) 82%,rgba(255,112,59,1) 100%);
                     border-radius:rem(5);
-                    position: absolute;
-                    transition: all 1s ease-in;
+                    position: relative;
                     >.currentPoint{
                         width:rem(30);
                         height:rem(30);
-                        background:#1BCAC9;
+                        background:#FF4848;
                         border-radius:50%;
                         border: rem(5) solid #fff;
                         position: absolute;
-                        right: - rem(15);
+                        left: - rem(15);
                         top: 0;
                         bottom: 0;
                         margin: auto;
                         z-index: 200;
+                        transition: all .8s ease-in;
+                    }
+                    >.targetPoint{
+                        // overflow: hidden;
+                        // width:rem(136);
+                        height:rem(50);
+                        background:linear-gradient(90deg,rgba(255,135,0,1) 0%,rgba(255,208,116,1) 100%);
+                        border-radius:rem(25);
+                        position: absolute;
+                        // right: rem(100);
+                        top: 0;
+                        bottom: 0;
+                        margin: auto;
+                        transition: all 1s ease-in;
+                        >div{
+                            position: relative;
+                            >span{
+                                min-width: rem(130);
+                                font-size:rem(24);
+                                font-family:PingFangSC-Medium,PingFang SC;
+                                font-weight:500;
+                                color:rgba(255,255,255,1);
+                                line-height:rem(24);
+                                position: absolute;
+                                top: - rem(30);
+                                left: 0;
+                                right: 0;
+                                margin: auto;
+                                text-align: left;
+                            }
+                        }
+                    }
+                }
+                >.progress_calgrey{
+                    height:rem(10);
+                    border-radius:rem(5);
+                    position: relative;
+                    background: #fff;
+                    >.progress_cal{
+                        // width: 100%;
+                        height:100%;
+                        background:linear-gradient(90deg,rgba(54,226,163,1) 0%,rgba(15,192,215,1) 100%);
+                        border-radius:rem(5);
+                        position: absolute;
+                        transition: all 1s ease-in;
+                        >.currentPoint{
+                            width:rem(30);
+                            height:rem(30);
+                            background:#1BCAC9;
+                            border-radius:50%;
+                            border: rem(5) solid #fff;
+                            position: absolute;
+                            right: - rem(15);
+                            top: 0;
+                            bottom: 0;
+                            margin: auto;
+                            z-index: 200;
+                        }
                     }
                 }
             }
         }
-    }
-    >.userList{
-        display: flex;
-        flex-wrap: wrap;
-        padding:0 rem(20) 0 rem(40);
-        box-sizing: border-box;
-        justify-content: flex-start;
-        >.userItem{
-            max-width:rem(220);
-            // height:rem(48);
-            line-height: rem(48);
-            background:rgba(216,216,216,0);
-            border-radius:rem(25);
-            border:rem(3) solid rgba(255,255,255,1);
+        >.userList{
             display: flex;
-            align-items: center;
-            margin:0 rem(20) rem(20) 0;
-            // justify-content: space-between;
-            >img{
-                width:rem(48);
-                height:rem(48);
+            flex-wrap: wrap;
+            padding:0 rem(20) 0 rem(20);
+            box-sizing: border-box;
+            justify-content: flex-start;
+            >.userItem{
+                max-width:rem(220);
+                // height:rem(48);
+                line-height: rem(48);
+                background:rgba(216,216,216,0);
+                border-radius:rem(25);
                 border:rem(3) solid rgba(255,255,255,1);
-                box-sizing: border-box;
-                border-radius: 50%;
-                margin-left: - rem(3);
-                // align-self: flex-start;
+                display: flex;
+                align-items: center;
+                margin:0 rem(20) rem(20) 0;
+                // justify-content: space-between;
+                >img{
+                    width:rem(48);
+                    height:rem(48);
+                    border:rem(3) solid rgba(255,255,255,1);
+                    box-sizing: border-box;
+                    border-radius: 50%;
+                    margin-left: - rem(3);
+                    // align-self: flex-start;
+                }
+                >div{
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    font-size:rem(22);
+                    font-family:PingFangSC-Regular,PingFang SC;
+                    font-weight:400;
+                    color:rgba(255,255,255,1);
+                    padding: 0 rem(10);
+                    box-sizing: border-box;
+                }
             }
-            >div{
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                font-size:rem(22);
-                font-family:PingFangSC-Regular,PingFang SC;
-                font-weight:400;
-                color:rgba(255,255,255,1);
+            >.userCount{
+                margin-left: auto;
                 padding: 0 rem(10);
-                box-sizing: border-box;
-            }
-        }
-        >.userCount{
-            margin-left: auto;
-            padding: 0 rem(10);
-            ion-icon{
-                margin-right: rem(10);
-            }
-            ion-icon, ion-text{
-                font-size: rem(28);
+                line-height: rem(48);
+                ion-icon{
+                    margin-right: rem(10);
+                }
+                ion-icon, ion-text{
+                    font-size: rem(28);
+                }
             }
         }
     }
-}
-.timeDown{
-   position: absolute;
-   width: 100%;
-   height: 100%;
-   left: 0;
-   bottom: 0;
-   right: 0;
-   top: 0;
-   margin: auto;
-   color: #fff;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   font-size: rem(100);
-   font-weight: bold;
-   z-index: 100;
-//    background: rgba(0,0,0,.5);
-   >span{
-    display: none;
-   }
-   >.animate{
-     display: block;
-     animation: number 1s linear;
-     animation-fill-mode: forwards
-   }
+    .timeDown{
+       position: absolute;
+       width: 100%;
+       height: 100%;
+       left: 0;
+       bottom: 0;
+       right: 0;
+       top: 0;
+       margin: auto;
+       color: #fff;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       font-size: rem(100);
+       font-weight: bold;
+       z-index: 100;
+    //    background: rgba(0,0,0,.5);
+       >span{
+        display: none;
+       }
+       >.animate{
+         display: block;
+         animation: number 1s linear;
+         animation-fill-mode: forwards
+       }
+    }
 }
 @keyframes number{
     0%{

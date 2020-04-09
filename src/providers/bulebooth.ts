@@ -55,12 +55,15 @@ export class bluebooth {
         cordova.exec(callSuccess,callFail,"jjBandsPlugin","testSendCommand",null);
 
      function callSuccess(message:any) {
-        alert("testSendCommand success:  " + message);
+        console.log("testSendCommand success:  " + message)
+        // alert("testSendCommand success:  " + message);
      }
 
      //失败后回调
      function callFail(message:any) {
-         alert("testSendCommand fail:  " + message);
+      console.log("testSendCommand fail:  " + message)
+
+        //  alert("testSendCommand fail:  " + message);
      }
   }
   //连接蓝牙
@@ -101,7 +104,8 @@ export class bluebooth {
       }
       //失败后回调
       function callFail(message:any) {
-          alert("getBandsInfo fail:  " + message);
+        console.log('getBandsInfo fail:',message)
+          // alert("getBandsInfo fail:  " + message);
       }
   }
   //获取镜子信息
@@ -142,7 +146,8 @@ export class bluebooth {
     }
     //失败后回调
     function callFail(message:any) {
-        alert("completeTraining fail:  " + message);
+      console.log('completeTraining fail',message)
+        // alert("completeTraining fail:  " + message);
     }
 
   }
@@ -155,7 +160,8 @@ export class bluebooth {
     }
     //失败后回调
     function callFail(message:any) {
-        alert("sendMessage fail:  " + message);
+      console.log('sendMessage fail',message)
+        // alert("sendMessage fail:  " + message);
     }
   }
 }

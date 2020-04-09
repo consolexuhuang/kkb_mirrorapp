@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 
-import { Platform ,AlertController} from '@ionic/angular';
+import { Platform ,ToastController} from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+declare const window:any
 
-import { Router } from '@angular/router';
- 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -16,69 +15,43 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private router: Router,
- 
-    private alertController: AlertController
+    private toastCtrl: ToastController,
   ) {
     this.initializeApp();
-    this.backButtonEvent()
   }
+  backButtonPressent:boolean
 
   initializeApp() {
     this.platform.ready().then(() => {
-      this.statusBar.styleDefault();
-      this.splashScreen.show();
-    });
-  }
-  lastTimeBackPress = 0;
-  timePeriodToExit = 2000;
- 
-  backButtonEvent() {
-    this.platform.backButton.subscribe(() => {
- 
-      if (this.router.url == 'index') {
- 
-        if (new Date().getTime() - this.lastTimeBackPress < this.timePeriodToExit) {
- 
-          navigator['app'].exitApp(); //退出APP
- 
+      console.log('statusBar-----',this.statusBar.hide())
+      this.statusBar.hide()
+      this.splashScreen.hide();
+      
+      document.addEventListener('backbutton', e => {
+        console.log('监听成功----------',window.location.href)
+        const url = window.location.href;
+        const exitIndexs = ['/index', 'index']
+        if(~exitIndexs.findIndex(index => url.indexOf(index) >= 0)){
+          this.showExit();
         } else {
- 
-          this.presentAlertConfirm();
-          this.lastTimeBackPress = new Date().getTime();//再按
- 
+          e.preventDefault()
         }
- 
-        // navigator['app'].exitApp(); //ionic4 退出APP的方法
-      }
- 
-    })
-  }
- 
-  async presentAlertConfirm() {
-    const alert = await this.alertController.create({
-      // header: 'Confirm!',
-      message: '您要退出APP吗?',
-      buttons: [
-        {
-          text: '取消',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-          }
- 
-        }, {
-          text: '退出',
-          handler: () => {
-            navigator['app'].exitApp();
-          }
- 
-        }
-      ]
- 
+      }, true)
+
     });
- 
-    await alert.present();
   }
- 
+    
+  showExit() {
+    if(!this.backButtonPressent){
+      this.toastCtrl.create({
+        message:'再按一下退出',
+        duration:2000,
+        position:'middle'
+      }).then(t => t.present())
+      this.backButtonPressent = true;
+      setTimeout(() => this.backButtonPressent = false, 2000)
+    } else {
+      navigator['app'].exitApp(); //退出APP
+    }
+  }
 }

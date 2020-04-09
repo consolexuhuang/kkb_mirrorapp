@@ -9,7 +9,8 @@ export class utils {
     static androidBackground:string = 'https://img.cdn.powerpower.net/5e60c05ce4b0ced1d05ddbf6.png'
     // 转rem
     static rem($px){
-       return $px/(750/24) + 'rem'
+    //    return $px/(750/24) + 'rem'
+       return $px/7.5 + 'vw'
     }
     //格式化视频时间
     static getFormatterTime(t:number) :string{

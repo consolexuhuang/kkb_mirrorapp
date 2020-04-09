@@ -25,6 +25,7 @@ export class ReadyvideoPage implements OnInit {
   ionViewWillEnter(){
     console.log('ionViewWillEnter-readyvideo------')
     this.StartCommandListener()
+    this.blue.sendMessage(5)
     // this.blue.Start(false)  //手环数据监听回调 true不接受三轴 false接受
   }
   ngOnInit() {
@@ -36,7 +37,7 @@ export class ReadyvideoPage implements OnInit {
     let collectArr:any = []
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['mirrorVideoState']);
     function callSuccess(message:any) {
-      console.log("receive command-readyvideo:  ", message)
+      // console.log("receive command-readyvideo:  ", message)
       if(message.type == 'action'){
         if(message.action == 21){ //播放
           that.blue.unRegisterListener('mirrorVideoState')
