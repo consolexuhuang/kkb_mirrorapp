@@ -23,12 +23,24 @@ declare var cordova:any
 export class IndexPage implements OnInit {
   headerImg:string = 'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png'
   srcImg:any = utils.androidBackground
+  videoConfig:any = {
+    '燃脂': [{id:'1',coursename:'BODYATTACK有氧挑战',time:'14分41秒',coach:'Laura',cal:'150',videoUrl:'hhhh', backgroudImg:'gggg'},
+                   {id:'2',coursename:'Yoga Flow流瑜伽-Vol.1',time:'12分42秒',coach:'乐仔',cal:'60',videoUrl:'fg', backgroudImg:''},
+                   {id:'3',coursename:'BODYCOMBAT燃脂搏击',time:'13分28秒',coach:'Lisa',cal:'120',videoUrl:'hhhh', backgroudImg:'gggg'},
+                   {id:'4',coursename:'Zumba尊巴-Vol.1',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'fg', backgroudImg:''}],
+   
+    '塑形': [{id:'5',coursename:'Yoga Flow流瑜伽-Vol.2',time:'12分42秒',coach:'乐仔',cal:'60',videoUrl:'fg', backgroudImg:''},
+            {id:'6',coursename:'Zumba尊巴-Vol.2',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'fg', backgroudImg:''}],
+    '舞蹈': [{id:'7',coursename:'Zumba尊巴-Vol.3',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'fg', backgroudImg:''}],
+    '舞蹈直播课': [{id:'8',coursename:'ffff',time:'',coach:'ffgfg',cal:'4545',videoUrl:'gggg', backgroudImg:'ggggg'}]
+  }
+  videoListTab:any = []
   videoList:any = [
-    {name:'BODYCOMBEAT燃脂搏击',coach:'乐仔'},
+    // {name:'BODYCOMBEAT燃脂搏击',coach:'乐仔'},
   ]
   createdCode: any = ''
   mirrorLinkState:boolean = false
-  currentTabState:any = 1
+  currentTabState:any = '燃脂'
   constructor(
     public nativeService: nativeService,
     public nav: NavController,
@@ -46,12 +58,23 @@ export class IndexPage implements OnInit {
   // 异步更新试图
   updataSyncFun(){
     this.ref.markForCheck();
-    this.ref.detectChanges();
+    if (!this.ref['destroyed']) {
+      this.ref.detectChanges();
+    }
+    // this.ref.detectChanges();
   }
   ionViewWillEnter(){
     console.log('ionViewWillEnter-index------')
     this.StartCommandListener()
     this.blue.getBandsInfo() //获取手环信息
+    if(this.route.snapshot.queryParams.id == 'list'){ //监听返回页面的参数
+      this.mirrorLinkState = true
+
+      this.videoConfig = utils.localStorageGetItem('videoConfig')
+      this.videoListTab = Object.keys(this.videoConfig)
+      this.videoList = this.videoConfig[this.videoListTab[0]]
+      this.updataSyncFun()
+    }
   }
   ngOnInit() {
     // var url='';
@@ -59,26 +82,24 @@ export class IndexPage implements OnInit {
     // })
     console.log('index-init',this.file)
     this.showMirrorCode()
-    if(this.route.snapshot.queryParams.id == 'list'){ //监听返回页面的参数
-      this.mirrorLinkState = true
-      this.videoList = utils.localStorageGetItem('videoList')
-      this.updataSyncFun()
-    }
+    
   }
   //开始接收
   StartCommandListener() {
     let that = this
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['index']);
     function callSuccess(message:any) {
-      console.log("receive command-index:  ", message)
       if(message.type == 'action'){
+        console.log("receive command-index:  ", message)
         // console.log("receive command-index:  ", message)
          //监听列表回调(镜子连接成功，显示列表)
          if(message.action == 20){
             that.mirrorLinkState = true
-            that.videoList = message.data
+            that.videoConfig = message.data[0]
+            that.videoListTab = Object.keys(that.videoConfig)
+            that.videoList = that.videoConfig[that.videoListTab[0]]
             that.updataSyncFun()
-            utils.localStorageSetItem('videoList',message.data) //本地先存列表
+            utils.localStorageSetItem('videoConfig',message.data[0]) //本地先存列表
          }
          //监听播放准备回调
          if(message.action == 6){ //播放准备命令
@@ -89,19 +110,23 @@ export class IndexPage implements OnInit {
          }
          //切换tab
          if(message.action == 30){
-            that.currentTabState = 1
+            that.currentTabState = '燃脂'
+            that.videoList = that.videoConfig[that.currentTabState]
             that.updataSyncFun()
          }
          if(message.action == 31){
-           that.currentTabState = 2
+           that.currentTabState = '塑形'
+           that.videoList = that.videoConfig[that.currentTabState]
            that.updataSyncFun()
          }
          if(message.action == 32){
-           that.currentTabState = 3
+           that.currentTabState = '舞蹈'
+           that.videoList = that.videoConfig[that.currentTabState]
            that.updataSyncFun()
          }
          if(message.action == 33){
-           that.currentTabState = 4
+           that.currentTabState = '舞蹈直播课'
+           that.videoList = that.videoConfig[that.currentTabState]
            that.updataSyncFun()
          }
        }
@@ -110,7 +135,7 @@ export class IndexPage implements OnInit {
         //  监听镜子连接状态回调
          if(message.status !== 2){ //镜子断开连接
             that.nativeService.showToast('镜子未连接','danger')
-            utils.localStorageRemoveItem('videoList')
+            utils.localStorageRemoveItem('videoConfig')
             that.showMirrorCode()  //重新展示二维码
             that.mirrorLinkState = false
             that.updataSyncFun()

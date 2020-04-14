@@ -5,7 +5,9 @@ const routes: Routes = [
   {
     path: '',
     // loadChildren: () => import('./training2/training2.module').then( m => m.Training2PageModule)
-    loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
+    
+    // loadChildren: () => import('./training/training.module').then( m => m.TrainingPageModule)
+        loadChildren: () => import('./index/index.module').then( m => m.IndexPageModule)
   },
   {
     path: 'index',

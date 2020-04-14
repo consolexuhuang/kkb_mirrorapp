@@ -19,10 +19,12 @@ import {bluebooth} from '../providers/bulebooth'
 
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
+
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { HttpClientModule } from '@angular/common/http'
 import{CommonService} from '../services/common.service';
 import { VgBufferingModule } from 'videogular2/compiled/buffering'
+import { Downloader,DownloadRequest } from '@ionic-native/downloader/ngx';
 
 
 
@@ -50,6 +52,7 @@ import { VgBufferingModule } from 'videogular2/compiled/buffering'
     WebView,
     utils,
     bluebooth,
+    Downloader
   ],
   bootstrap: [AppComponent]
 })

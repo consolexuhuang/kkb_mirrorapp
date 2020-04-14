@@ -20,8 +20,8 @@ export class TraincompletePage implements OnInit {
     // private utils: utils,
   ) { }
   srcImg:any = utils.androidBackground
-  bpm:any
-  cal:any
+  bpm:any = 0
+  cal:any = 0
   dateList:any = []
   valueList:any = [66,70,63,73,77,70,75,80,84,88]
   chartOption: Object = {
@@ -40,7 +40,7 @@ export class TraincompletePage implements OnInit {
         text: '心率分布',
         textStyle:{
           color:'#DDDDDD',
-          fontSize:this.rem(30)
+          fontSize:this.rem(40)
         }
     }],
     tooltip: {
@@ -53,9 +53,9 @@ export class TraincompletePage implements OnInit {
         data: []
     }],
     yAxis: [{
-        max : 300,
+        max : 200,
         min : 0,
-        splitNumber : 5,
+        splitNumber : 4,
         axisLine:{
           show: false
         },
@@ -87,7 +87,7 @@ export class TraincompletePage implements OnInit {
     }]
   }
   rem($px){
-    return $px/(750/20) + 'rem'
+    return $px/7.5 + 'vw'
   }
   ngOnInit() {
     this.StartCommandListener()
@@ -112,8 +112,8 @@ export class TraincompletePage implements OnInit {
     let that = this
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['complete']);
     function callSuccess(message:any) {
-      console.log("receive command-complete:  ", message)
-        if(message.type == 'action'){
+      if(message.type == 'action'){
+        console.log("receive command-complete:  ", message)
           if(message.action == 20){ //显示列表
             that.blue.unRegisterListener('complete')
             that.ngZone.run(() => {

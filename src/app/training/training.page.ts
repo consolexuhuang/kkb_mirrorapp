@@ -5,11 +5,11 @@ import { nativeService } from '../../providers/nativeService';
 
 import {VgAPI} from 'videogular2/compiled/core'
 import {bluebooth} from '../../providers/bulebooth'
-import VConsole from 'vconsole';
 import { utils } from '../../providers/utils';
 import { File } from '@ionic-native/file/ngx';
 import { from } from 'rxjs';
 
+import VConsole from 'vconsole';
 var vConsole = new VConsole();
 declare var cordova:any
 // (window as any).requestFileSystem
@@ -20,9 +20,8 @@ declare var cordova:any
   styleUrls: ['./training.page.scss'],
 })
 export class TrainingPage implements OnInit {
-  // videoSrc: string = '../assets/vid.mp4'
-  videoSrc: string = 'http://img.cdn.powerpower.net/vid2.mp4'
-  // videoSrc: string = 'https://www.w3school.com.cn/i/movie.ogg'
+  // videoSrc: string = 'file:///sdcard/yoga.mp4'
+  // videoSrc: string = 'http://img.cdn.powerpower.net/vid.mp4'
 
   
   preload:string = 'auto';
@@ -36,27 +35,27 @@ export class TrainingPage implements OnInit {
     {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'sfyds'},
     {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'dfhghgh'},
   ];
-  changeFontSize:any = this.rem(48)
+  changeFontSize:any = this.rem(46)
   timeDown:number = 5 //视频倒计时
- 
+   
+  //bpm最大值
   BPMRange:number = 200; //BPM最大值
-  CALRange:number = 10000;//CAL最大值
 
   // BPMWidth:number = this.platform.width()/1.585 // px
+  //bpm宽度
   BPMWidth:number = 473/7.5 // vw
 
-  CALWidth:number = 473/7.5 // px
-
+  // 指示点宽度
   pointWidth:number = 30/7.5 //px
-
+  //当前bpm值
   currentBPM: Number = 0  //当前BPM
+  // 总卡路里值
   totalCal:number = 0
   
+  //收集bpm序列
   allBpmCollect:any = []
 
-  //当前BPM接受列表
-  currentBPMList: any = []
-  //BPM目标段区间值
+  //BPM目标段区间配置值
   BPMdurTarget:Array<any> = [
     [10,40],
     [30,80],
@@ -81,15 +80,11 @@ export class TrainingPage implements OnInit {
   currentReptObj: Object = {
     "left": - this.rem(15),
   }
-  currentCalObj: Object = {
-    "left":0,
-    "width":0
-  }
   collectArr: any 
   volumeState:boolean = false
   timerObj:any
+
   @ViewChild("myProgress", {static:true}) myprogress: any;
-  // @ViewChild("masterVideo", {static:true}) masterVideo: any;
   constructor(
     public nativeService: nativeService,
     private ref:ChangeDetectorRef,
@@ -120,6 +115,7 @@ export class TrainingPage implements OnInit {
   }
   //开始视频
   startVideo(){
+    // console.log(this.api)
     this.api.play()
     this.computeBPMdur()
   }
@@ -140,7 +136,8 @@ export class TrainingPage implements OnInit {
     this.api.getDefaultMedia().subscriptions.canPlayThrough.subscribe(
       (a)=>{
         console.log('canPlayThrough--视频缓冲完成')
-        this.timeDownMethod()
+        // this.timeDownMethod()
+        this.api.play()
       }
     )
     //视频over
@@ -220,18 +217,10 @@ export class TrainingPage implements OnInit {
   // 计算kal
   computeCal(currentBarndsCAL:any){
     this.totalCal = currentBarndsCAL
-    if(currentBarndsCAL <= this.CALRange) {
-      this.currentCalObj = this.progressRept(0,
-                                              currentBarndsCAL,
-                                              this.CALWidth, 
-                                              this.CALRange)
-    } else {
-      this.currentCalObj = {'left': 0, 'width':this.rem(this.CALWidth)}
-    }
-    if(currentBarndsCAL > 10000){
+    if(currentBarndsCAL > 1000){
        this.changeFontSize = this.rem(38)
     } else {
-      this.changeFontSize = this.rem(48)
+      this.changeFontSize = this.rem(46)
     }
     this.updataSyncFun()
   }
@@ -269,15 +258,11 @@ export class TrainingPage implements OnInit {
   }
   ngOnInit() {
     this.StartCommandListener()  //监听回调
+    this.timeDownMethod()  //视频倒计时
 
   };
   ngAfterViewInit(){
     this.myprogress.nativeElement.style.width = this.BPMWidth + 'vw'
-
-    // this.timeDownMethod()  //视频倒计时
-
-    // this.myprogressCal.nativeElement.style.width = this.rem(this.CALWidth)
-    // console.log(this.myprogress.nativeElement.style.width)
   }
   //开始接收
   StartCommandListener() {
@@ -314,7 +299,7 @@ export class TrainingPage implements OnInit {
             that.ngZone.run(() => {
               that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
             })
-            that.blue.unRegisterListener('training')
+            // that.blue.unRegisterListener('training')
          }
        }
        if(message.type == 'data'){ 

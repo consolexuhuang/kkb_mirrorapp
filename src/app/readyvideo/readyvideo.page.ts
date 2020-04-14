@@ -37,10 +37,10 @@ export class ReadyvideoPage implements OnInit {
     let collectArr:any = []
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['mirrorVideoState']);
     function callSuccess(message:any) {
-      // console.log("receive command-readyvideo:  ", message)
+      console.log("receive command-readyvideo:  ", message)
       if(message.type == 'action'){
-        if(message.action == 21){ //播放
-          that.blue.unRegisterListener('mirrorVideoState')
+        if(message.action == 50 || message.action == 51 || message.action == 52 || message.action == 53){ //播放
+          // that.blue.unRegisterListener('mirrorVideoState')
           that.ngZone.run(() => {
             that.nav.navigateForward('/training')
           })
@@ -50,7 +50,7 @@ export class ReadyvideoPage implements OnInit {
           that.ngZone.run(() => {
             that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
           })
-          that.blue.unRegisterListener('mirrorVideoState')
+          // that.blue.unRegisterListener('mirrorVideoState') //如果频繁的操作注册监听和，关闭监听，会出现发送发送命令失败的情况
         }
        }
        if(message.type == 'data'){ 
@@ -62,8 +62,8 @@ export class ReadyvideoPage implements OnInit {
        if(message.type == 'stateChange'){
         //监听镜子断开连接
         if(message.status !== 2){ 
-           utils.localStorageRemoveItem('videoList')
-           alert('连接已断开')
+           utils.localStorageRemoveItem('videoConfig')
+          //  alert('连接已断开')
         }
       }
       //  alert("receive command:  " + JSON.stringify(message));

@@ -24,7 +24,10 @@
     
     <div class="segment">
       <ion-segment color="light"  [(ngModel)]="currentTabState">
-        <ion-segment-button value="1">
+        <ion-segment-button *ngFor="let item of videoListTab" [(value)]="item">
+          <ion-label [ngStyle]="{color: currentTabState == item ? '#fff': '#CCCCCC'}">{{item}}</ion-label>
+        </ion-segment-button>
+        <!-- <ion-segment-button value="1">
           <ion-label [ngStyle]="{color: currentTabState == 1 ? '#fff': '#CCCCCC'}">燃脂</ion-label>
         </ion-segment-button>
         <ion-segment-button value="2">
@@ -35,16 +38,16 @@
         </ion-segment-button>
         <ion-segment-button value="4">
           <ion-label [ngStyle]="{color: currentTabState == 4 ? '#fff': '#CCCCCC'}">直播课程</ion-label>
-        </ion-segment-button>
+        </ion-segment-button> -->
       </ion-segment>
     </div>
 
     <div class="videoList">
-        <div *ngFor="let item of videoList">
-            <div class="name">{{item.name}}</div>
-            <div class="coach">教练:{{item.coach}}</div>
-            <div class="info"><span>时长:4:00</span><span>消耗400cal</span> </div>
-        </div>
+      <div *ngFor="let item of videoList" (click)="startTrain(item.id)">
+          <div class="name">{{item.coursename}}</div>
+          <div class="coach">教练:{{item.coach}}</div>
+          <div class="info"><span>时长:{{item.time}}</span><span>消耗{{item.cal}}cal</span> </div>
+      </div>
     </div>
   </div>
 

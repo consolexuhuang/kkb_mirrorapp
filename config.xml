@@ -5,6 +5,7 @@
     <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
     <access origin="*" />
+    <allow-intent href="file:*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -19,7 +20,7 @@
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashScreenDelay" value="3000" />
-    <preference name="AndroidPersistentFileLocation" value="Internal" />
+    <preference name="AndroidPersistentFileLocation" value="Compatibility" />
     <preference name="AndroidExtraFilesystems" value="files,files-external,documents,sdcard,cache,cache-external,root" />
     <platform name="android">
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
@@ -112,5 +113,6 @@
     <plugin name="cordova-admob" spec="^5.1.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.2" />
     <plugin name="jjBandsPlugin" spec="D:\kkb\andriod\plugins2\jjBandsPlugin\jjBandsPlugin" />
+    <plugin name="integrator-cordova-plugin-downloader" spec="^1.1.0" />
     <engine name="browser" spec="^5.0.4" />
 </widget>
