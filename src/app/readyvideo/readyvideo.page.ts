@@ -37,8 +37,8 @@ export class ReadyvideoPage implements OnInit {
     let collectArr:any = []
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['mirrorVideoState']);
     function callSuccess(message:any) {
-      console.log("receive command-readyvideo:  ", message)
       if(message.type == 'action'){
+        console.log("receive command-readyvideo:  ", message)
         if(message.action == 50 || message.action == 51 || message.action == 52 || message.action == 53){ //播放
           // that.blue.unRegisterListener('mirrorVideoState')
           that.ngZone.run(() => {
@@ -56,7 +56,8 @@ export class ReadyvideoPage implements OnInit {
        if(message.type == 'data'){ 
           // 监听收集心率, cal, xyz, a 1:bpm  3:three
           if(message.datatype == 1){
-              that.blue.sendMessage(5) //第一次接受心率成功
+              console.log('心率收集成功！')
+              // that.blue.sendMessage(5) //第一次接受心率成功
           }
        }
        if(message.type == 'stateChange'){

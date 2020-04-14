@@ -136,8 +136,8 @@ export class TrainingPage implements OnInit {
     this.api.getDefaultMedia().subscriptions.canPlayThrough.subscribe(
       (a)=>{
         console.log('canPlayThrough--视频缓冲完成')
-        // this.timeDownMethod()
-        this.api.play()
+        this.timeDownMethod()
+        // this.api.play()
       }
     )
     //视频over
@@ -273,8 +273,8 @@ export class TrainingPage implements OnInit {
     // }
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","registerListener",['training']);
     function callSuccess(message:any) {
+      console.log("receive command-training:  ", message)
       if(message.type == 'action'){
-         console.log("receive command-training:  ", message)
          //  监听暂停
          if(message.action == 22){ //暂停
            that.api.pause()
