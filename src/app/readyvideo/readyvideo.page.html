@@ -13,19 +13,16 @@
   <img [src] = 'srcImg' alt="">
   <div class="mask"></div>
   <div class="continer">
-    <div class="videoTitle">BODYCOMBEAT燃脂搏击—V1</div>
-    <div class="videoName">教练：乐仔</div>
+    <div class="videoTitle">{{videoCurrentInfo.coursename}}</div>
+    <div class="videoName">教练：{{videoCurrentInfo.coach}}</div>
  
     <div class="videoType">
  
-      <div class="typeItem">HIIT</div>
-      <div class="typeItem">HIIT</div>
-      <div class="typeItem">HIIT</div>
-      <div class="typeItem">sdsdss</div>
+      <div class="typeItem" *ngFor="let item of videoCurrentInfo.coursetags">{{item}}</div>
     </div>
 
-    <img src="https://img.cdn.powerpower.net/5c0125e1e4b07ace7af32850.jpg" alt="">
-    <div class="cont">BODYCOMBEAT是快节奏、中高强度、多重次 数的搏击主题有氧运动项目，高效训练四肢肌群 和核心。不仅可以燃烧多达740千卡的热量还能 让你尽情释放压力。</div>
+    <img [src] = 'videoCurrentInfo.banner' alt="">
+    <div class="cont">{{videoCurrentInfo.courseinfo}}</div>
 
     <!-- <div class="btn">课程下载中…</div> -->
   </div>

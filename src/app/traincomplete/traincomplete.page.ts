@@ -22,6 +22,7 @@ export class TraincompletePage implements OnInit {
   srcImg:any = utils.androidBackground
   bpm:any = 0
   cal:any = 0
+  trainTime:any
   dateList:any = []
   valueList:any = [66,70,63,73,77,70,75,80,84,88]
   chartOption: Object = {
@@ -105,6 +106,9 @@ export class TraincompletePage implements OnInit {
     }
     if(utils.sessionStorageGetItem('allCal')){
       this.cal = utils.sessionStorageGetItem('allCal')
+    }
+    if(utils.sessionStorageGetItem('trainTime')){
+      this.trainTime = utils.sessionStorageGetItem('trainTime')
     }
   }
   //开始接收

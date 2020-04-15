@@ -21,7 +21,8 @@
 
     
       <video [vgMedia]="media" #media [vgMaster]="true" id="masterVideo" preload="auto" poster="https://img.cdn.powerpower.net/5e8ecc9fe4b0b9999a226a7e.png">
-        <source src="http://localhost:5000/BA_Laura_v2.mp4" type="video/mp4">
+        <source [src]='videoUrl' type="video/mp4">
+          <!-- <source src="https://img.cdn.powerpower.net/vid.mp4" type="video/mp4"> -->
       </video>
   
       <div class="vidCon">

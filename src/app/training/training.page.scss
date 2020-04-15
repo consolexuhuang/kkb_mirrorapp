@@ -6,6 +6,9 @@ $designWidth : 750;
     width: 100%;
     height: 100%;
     position: relative;
+    #masterVideo{
+        height: 80%;
+    }
     .videoBar{
         position: absolute;
         width: 100%;

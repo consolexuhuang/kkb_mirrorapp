@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef,ViewChild, NgZone} from '@angular/core';
 import {Platform, NavController} from '@ionic/angular'; //弹框
+import { ActivatedRoute } from '@angular/router';
 
 import { nativeService } from '../../providers/nativeService';
 
@@ -23,7 +24,14 @@ export class TrainingPage implements OnInit {
   // videoSrc: string = 'file:///sdcard/yoga.mp4'
   // videoSrc: string = 'http://img.cdn.powerpower.net/vid.mp4'
 
-  
+  videoId:any
+  videoList:any = [
+    {id:50,openid:60, url:'http://localhost:5000/BA_Laura_v2.mp4', cal:150000},
+    {id:51,openid:61, url:'http://localhost:5000/BC_Lisa_v2.mp4',cal:60000},
+    {id:52, openid:62,url:'http://localhost:5000/Test_Manman_203.mp4',cal:120000},
+    {id:53,openid:63, url:'http://localhost:5000/Yoga_Lezai_v2.mp4',cal:40000}
+  ]
+  videoUrl:string = ''
   preload:string = 'auto';
   api:VgAPI;
   userList:Array<Object> = [
@@ -51,7 +59,8 @@ export class TrainingPage implements OnInit {
   currentBPM: Number = 0  //当前BPM
   // 总卡路里值
   totalCal:number = 0
-  
+  targetCal:any
+  trainTime:any
   //收集bpm序列
   allBpmCollect:any = []
 
@@ -93,6 +102,7 @@ export class TrainingPage implements OnInit {
     private file : File,
     private ngZone: NgZone,
     private platform: Platform,
+    private route : ActivatedRoute
   ) { }
 
   rem($px){
@@ -118,6 +128,7 @@ export class TrainingPage implements OnInit {
     // console.log(this.api)
     this.api.play()
     this.computeBPMdur()
+    this.computeCal()
   }
   onPlayerReady(api:VgAPI) {
     this.api = api;
@@ -146,6 +157,7 @@ export class TrainingPage implements OnInit {
           console.log('video-over')
           utils.sessionStorageSetItem('allCollectBpm',this.allBpmCollect)
           utils.sessionStorageSetItem('allCal',this.totalCal)
+          utils.sessionStorageSetItem('trainTime',this.trainTime)
           this.blue.completeTraining() //回调完成
           this.blue.Stop()  //暂停监听
           this.api.getDefaultMedia().currentTime = 0 //视频重启
@@ -215,14 +227,27 @@ export class TrainingPage implements OnInit {
                                               this.updataSyncFun()
   }
   // 计算kal
-  computeCal(currentBarndsCAL:any){
-    this.totalCal = currentBarndsCAL
-    if(currentBarndsCAL > 1000){
-       this.changeFontSize = this.rem(38)
-    } else {
-      this.changeFontSize = this.rem(46)
-    }
-    this.updataSyncFun()
+  computeCal(){
+    // this.targetCal = 15000
+    console.log('computeCal',this.api, this.api.duration)
+    this.totalCal = 0
+    let timeItemCal = parseInt((this.targetCal / this.api.duration).toFixed(0))
+    let a = (this.api.duration/60).toFixed(2)
+    this.trainTime = a.replace(a[a.indexOf('.')],':')
+
+    let timer = setInterval(()=>{
+      if(this.totalCal > this.targetCal){
+        clearInterval(timer)
+      } else {
+        this.totalCal += timeItemCal
+        if(this.totalCal > 1000){
+          this.changeFontSize = this.rem(38)
+       } else {
+         this.changeFontSize = this.rem(46)
+       }
+       this.updataSyncFun()
+      }
+    },1000)
   }
   // 音量增
   volumeAdd(){
@@ -257,13 +282,24 @@ export class TrainingPage implements OnInit {
     },2000)
   }
   ngOnInit() {
+    console.log('videoId',this.route.snapshot.queryParams,this.videoList)
+    this.videoId = this.route.snapshot.queryParams.id
+    for(let i = 0; i< this.videoList.length; i++){
+      if(this.videoList[i].openid == this.route.snapshot.queryParams.id) {
+        this.videoUrl = this.videoList[i].url
+        this.targetCal = this.videoList[i].cal
+        console.log('videoUrl',this.videoUrl,this.targetCal)
+      }
+    }
     this.StartCommandListener()  //监听回调
-    this.timeDownMethod()  //视频倒计时
-
+    
   };
   ngAfterViewInit(){
     this.myprogress.nativeElement.style.width = this.BPMWidth + 'vw'
   }
+  // ionViewWillEnter(){
+  //   this.blue.unRegisterListener('mirrorVideoState')
+  // }
   //开始接收
   StartCommandListener() {
     let that = this
@@ -307,7 +343,7 @@ export class TrainingPage implements OnInit {
           // 监听收集心率, cal, xyz, a
           if(message.datatype == 1) {
             that.copmuteCurrBPM(message.heart)
-            that.computeCal(message.cal)
+            // that.computeCal(message.cal)
             // let objItem2 = {}
             // objItem2['time'] = that.api.currentTime.toFixed(2)
             // objItem2['bpm'] = message.heart || 0

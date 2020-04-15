@@ -96,7 +96,7 @@ export class bluebooth {
       cordova.exec(callSuccess,callFail,"jjBandsPlugin","getBandsInfo",null);
       function callSuccess(message:any) {
          if(message.list[0].status == 1){
-           that.Start(false)
+           that.Start(true)
              //手环数据监听回调 true不接受三轴 false接受
          }
          console.log('getBandsInfo success:',message)
