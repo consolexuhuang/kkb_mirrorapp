@@ -1,10 +1,10 @@
 import { Component, OnInit ,NgZone} from '@angular/core';
 import { NavController} from '@ionic/angular'; 
 import {bluebooth} from '../../providers/bulebooth'
-import VConsole from 'vconsole';
 import { utils } from '../../providers/utils';
 
-var vConsole = new VConsole();
+// import VConsole from 'vconsole';
+// var vConsole = new VConsole();
 declare var cordova:any
 @Component({
   selector: 'app-traincomplete',
@@ -93,6 +93,7 @@ export class TraincompletePage implements OnInit {
   ngOnInit() {
     this.StartCommandListener()
     this.compluteval()
+    this.blue.completeTraining() //回调完成
   }
   // 计算平均数据
   compluteval(){

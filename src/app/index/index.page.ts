@@ -10,9 +10,9 @@ import { File } from '@ionic-native/file/ngx';
 import {CommonService} from '../../services/common.service';  //注意两个点
 
 
-import VConsole from 'vconsole';
+// import VConsole from 'vconsole';
+// var vConsole = new VConsole();
 
-var vConsole = new VConsole();
 declare var cordova:any
 
 @Component({
@@ -24,15 +24,16 @@ export class IndexPage implements OnInit {
   headerImg:string = 'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png'
   srcImg:any = utils.androidBackground
   videoConfig:any = {
-    '燃脂': [{id:50,coursename:'BODYATTACK有氧挑战',time:'14分41秒',coach:'Laura',cal:'150',videoUrl:'http://localhost:5000/BA_Laura_v2.mp4', backgroudImg:'gggg'},
-                   {id:51,coursename:'Yoga Flow流瑜伽-Vol.1',time:'12分42秒',coach:'乐仔',cal:'60',videoUrl:'http://localhost:5000/BC_Lisa_v2.mp4', backgroudImg:''},
-                   {id:52,coursename:'BODYCOMBAT燃脂搏击',time:'13分28秒',coach:'Lisa',cal:'120',videoUrl:'http://localhost:5000/Test_Manman_203.mp4', backgroudImg:'gggg'},
-                   {id:53,coursename:'Zumba尊巴-Vol.1',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'http://localhost:5000/Yoga_Lezai_v2.mp4', backgroudImg:''}],
+    '燃脂': [{id:50,coursename:'BODYATTACK有氧挑战',time:'14分41秒',coach:'Laura',cal:'150',videoUrl:'http://localhost:5000/BA_Laura_v2.mp4', backgroudImg:'https://img.cdn.powerpower.net/5e94238fe4b0b9999a226d21.png'},
+                {id:51,coursename:'BODYCOMBAT燃脂搏击',time:'13分28秒',coach:'Lisa',cal:'120',videoUrl:'http://localhost:5000/Test_Manman_203.mp4', backgroudImg:'https://img.cdn.powerpower.net/5e9423e3e4b0b9999a226d24.png'},
+                   {id:52,coursename:'Yoga Flow流瑜伽-Vol.1',time:'12分42秒',coach:'乐仔',cal:'60',videoUrl:'http://localhost:5000/BC_Lisa_v2.mp4', backgroudImg:'https://img.cdn.powerpower.net/5e942445e4b0b9999a226d28.png'},
+                   {id:53,coursename:'Zumba尊巴-Vol.1',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'http://localhost:5000/Yoga_Lezai_v2.mp4', backgroudImg:'https://img.cdn.powerpower.net/5e942415e4b0b9999a226d26.png'}],
    
-    '塑形': [{id:50,coursename:'Yoga Flow流瑜伽-Vol.2',time:'12分42秒',coach:'乐仔',cal:'60',videoUrl:'http://localhost:5000/BA_Laura_v2.mp4', backgroudImg:''},
-            {id:51,coursename:'Zumba尊巴-Vol.2',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'http://localhost:5000/Yoga_Lezai_v2.mp4', backgroudImg:''}],
-    '舞蹈': [{id:52,coursename:'Zumba尊巴-Vol.3',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'http://localhost:5000/BA_Laura_v2.mp4', backgroudImg:''}],
-    '舞蹈直播课': [{id:53,coursename:'ffff',time:'',coach:'ffgfg',cal:'4545',videoUrl:'http://localhost:5000/Test_Manman_203.mp4', backgroudImg:'ggggg'}]
+    '塑形': [{id:52,coursename:'Yoga Flow流瑜伽-Vol.2',time:'12分42秒',coach:'乐仔',cal:'60',videoUrl:'http://localhost:5000/BC_Lisa_v2.mp4', backgroudImg:'https://img.cdn.powerpower.net/5e942445e4b0b9999a226d28.png'},
+            {id:53,coursename:'Zumba尊巴-Vol.3',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'http://localhost:5000/Test_Manman_203.mp4', backgroudImg:'https://img.cdn.powerpower.net/5e942415e4b0b9999a226d26.png'}],
+    '舞蹈': [{id:53,coursename:'Zumba尊巴-Vol.3',time:'4分23秒',coach:'Lisa',cal:'40',videoUrl:'http://localhost:5000/Test_Manman_203.mp4', backgroudImg:'https://img.cdn.powerpower.net/5e942415e4b0b9999a226d26.png'}],
+
+    '直播课': []
   }
   videoListTab:any = []
   videoList:any = [
@@ -75,7 +76,6 @@ export class IndexPage implements OnInit {
 
       this.videoList = this.videoConfig[this.videoListTab[0]]
       this.currentTabState = this.videoListTab[0]
-      
       this.updataSyncFun()
     }
   }
@@ -97,15 +97,17 @@ export class IndexPage implements OnInit {
         // console.log("receive command-index:  ", message)
          //监听列表回调(镜子连接成功，显示列表)
          if(message.action == 20){
+            // 初始化tab状态
             that.mirrorLinkState = true
-            that.videoConfig = message.data[0]
+            // that.videoConfig = message.data[0]
             that.videoListTab = Object.keys(that.videoConfig)
-
+            
             that.videoList = that.videoConfig[that.videoListTab[0]]
             that.currentTabState = that.videoListTab[0]
 
             that.updataSyncFun()
-            utils.localStorageSetItem('videoConfig',message.data[0]) //本地先存列表
+            //保存本地
+            utils.localStorageSetItem('videoConfig',that.videoConfig) //本地先存列表
          }
          //监听播放准备回调
          if(message.action == 50 || message.action == 51 || message.action == 52 || message.action == 53){ //播放准备命令
@@ -114,6 +116,7 @@ export class IndexPage implements OnInit {
             that.ngZone.run(() => {
               that.nav.navigateForward('/readyvideo')
             })
+            // that.blue.unRegisterListener('index')
          }
          //切换tab
          if(message.action == 30){

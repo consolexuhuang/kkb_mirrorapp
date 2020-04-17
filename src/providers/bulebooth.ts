@@ -62,7 +62,6 @@ export class bluebooth {
      //失败后回调
      function callFail(message:any) {
       console.log("testSendCommand fail:  " + message)
-
         //  alert("testSendCommand fail:  " + message);
      }
   }
@@ -70,7 +69,8 @@ export class bluebooth {
   ConnectBands() {
     cordova.exec(callSuccess,callFail,"jjBandsPlugin","connectBands",null);
     function callSuccess(message:any) {
-       alert("testConnectBands success:  " + message);
+       console.log("testConnectBands success:  " + message)
+      //  alert("testConnectBands success:  " + message);
     }
     //失败后回调
     function callFail(message:any) {

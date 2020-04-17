@@ -6,11 +6,11 @@
 <!-- (onPlayerReady)="onPlayerReady($event)" -->
 <div id="content">
   <vg-player class="player"  (onPlayerReady)="onPlayerReady($event)">
-    <!-- <vg-scrub-bar class="videoBar">
+    <vg-scrub-bar class="videoBar">
       <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
       <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
-    </vg-scrub-bar> -->
-    <vg-controls class="videoBar" *ngIf="volumeState">
+    </vg-scrub-bar>
+    <vg-controls class="videoBar2" *ngIf="volumeState">
       <vg-volume  class="video-control-voice"></vg-volume>
     </vg-controls>
     <vg-time-display class="videoTime" vgProperty="current" vgFormat="mm:ss"></vg-time-display>
@@ -20,9 +20,9 @@
     <vg-overlay-play></vg-overlay-play>
 
     
-      <video [vgMedia]="media" #media [vgMaster]="true" id="masterVideo" preload="auto" poster="https://img.cdn.powerpower.net/5e8ecc9fe4b0b9999a226a7e.png">
+      <video [vgMedia]="media" #media [vgMaster]="true" id="masterVideo" preload="auto" poster="https://img.cdn.powerpower.net/5e98043be4b0ff0cce9bfb78.png">
         <source [src]='videoUrl' type="video/mp4">
-          <!-- <source src="https://img.cdn.powerpower.net/vid.mp4" type="video/mp4"> -->
+        <!-- <source src="https://img.cdn.powerpower.net/vid.mp4" type="video/mp4"> -->
       </video>
   
       <div class="vidCon">
@@ -33,7 +33,7 @@
               <div class="BPMLeft">
                 <div class="BPMTitle">
                     <ion-icon slot="start" name="flame" color="danger"></ion-icon>
-                    <ion-text color="light">CAL</ion-text>
+                    <ion-text color="light">KCAL</ion-text>
                 </div>
                 <div class="BPMData" [ngStyle]="{fontSize: changeFontSize}">{{totalCal}}</div>
               </div>
@@ -52,21 +52,21 @@
                <div class="progress" #myProgress>
                    <div class="currentPoint" [ngStyle]="currentReptObj"></div> 
                    <div class="targetPoint" [ngStyle]="progressReptObj" >
-                    <div><span *ngIf="progressReptObj.width">REACH</span></div>
+                    <div><span *ngIf="progressReptObj.width">TARGET</span></div>
                    </div>
                </div>
             </div>
          </div>
   
   
-          <div class="userList">
-              <div class="userItem" *ngFor="let item of userList">
-                <img src="https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png" />
+          <div class="userList" *ngIf="roundUseList">
+              <div class="userItem" *ngFor="let item of roundUseList">
+                <img [src] = 'item.img'/>
                 <div>{{item.name}}</div>
               </div>
-              <div class="userCount">
+              <div class="userCount"*ngIf="watchCount" >
                   <ion-icon slot="start" name="person" color='light'></ion-icon>
-                  <ion-text color="light">90</ion-text>
+                  <ion-text color="light">{{watchCount}}</ion-text>
               </div>
           </div>
       </div>

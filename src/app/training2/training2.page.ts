@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Downloader,DownloadRequest } from '@ionic-native/downloader/ngx';
 import { Platform ,ModalController, NavController} from '@ionic/angular';
 
-import VConsole from 'vconsole';
-var vConsole = new VConsole();
+// import VConsole from 'vconsole';
+// var vConsole = new VConsole();
 @Component({
   selector: 'app-training2',
   templateUrl: './training2.page.html',

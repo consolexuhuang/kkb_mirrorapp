@@ -18,7 +18,7 @@
       <div class="imgHeader">
         <img [src] ="headerImg" />
       </div>
-      <span>William</span>
+      <span>Admin</span>
       <!-- <ion-icon slot="end" name="settings-outline" color="light" size="40"></ion-icon> -->
     </div>
     
@@ -44,9 +44,10 @@
 
     <div class="videoList">
       <div *ngFor="let item of videoList" (click)="startTrain(item.id)">
+          <img [src] = 'item.backgroudImg' alt="">
           <div class="name">{{item.coursename}}</div>
           <div class="coach">教练:{{item.coach}}</div>
-          <div class="info"><span>时长:{{item.time}}</span><span>消耗{{item.cal}}cal</span> </div>
+          <div class="info"><span>时长:{{item.time}}</span><span>消耗{{item.cal}}kcal</span> </div>
       </div>
     </div>
   </div>

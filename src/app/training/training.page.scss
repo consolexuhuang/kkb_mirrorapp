@@ -9,7 +9,20 @@ $designWidth : 750;
     #masterVideo{
         height: 80%;
     }
+    .player{
+        background: #0A070A;
+    }
     .videoBar{
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        vg-volume{
+            width: 100%;
+            padding: 0 rem(100);
+            // margin-top: rem(40);
+        }
+    }
+    .videoBar2{
         position: absolute;
         width: 100%;
         top: 0;
@@ -43,14 +56,16 @@ $designWidth : 750;
                 justify-content: space-between;
                 align-items: center;
                 >.BPMLeft{
-                    margin-right: rem(30);
+                    margin-right: rem(20);
                     >.BPMTitle{
-                        // display: flex;
+                        display: flex;
                         // align-items: flex-end;
                         ion-text{
+                           align-self: center;
                            font-size: rem(24);
                         }
                         ion-icon{
+                           align-self: center;
                            font-size: rem(26);
                            margin-right: rem(4);
                         }
@@ -164,6 +179,7 @@ $designWidth : 750;
                 display: flex;
                 align-items: center;
                 margin:0 rem(20) rem(20) 0;
+                animation: fadeIn .5s linear;
                 // justify-content: space-between;
                 >img{
                     width:rem(48);
@@ -212,7 +228,7 @@ $designWidth : 750;
        display: flex;
        align-items: center;
        justify-content: center;
-       font-size: rem(100);
+       font-size: rem(180);
        font-weight: bold;
        z-index: 100;
     //    background: rgba(0,0,0,.5);
@@ -234,5 +250,13 @@ $designWidth : 750;
     100%{
         opacity: 0;
         transform: scale(2);
+    }
+}
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
     }
 }

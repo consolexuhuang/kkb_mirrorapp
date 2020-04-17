@@ -10,8 +10,8 @@ import { utils } from '../../providers/utils';
 import { File } from '@ionic-native/file/ngx';
 import { from } from 'rxjs';
 
-import VConsole from 'vconsole';
-var vConsole = new VConsole();
+// import VConsole from 'vconsole';
+// var vConsole = new VConsole();
 declare var cordova:any
 // (window as any).requestFileSystem
 
@@ -26,23 +26,34 @@ export class TrainingPage implements OnInit {
 
   videoId:any
   videoList:any = [
-    {id:50,openid:60, url:'http://localhost:5000/BA_Laura_v2.mp4', cal:150000},
-    {id:51,openid:61, url:'http://localhost:5000/BC_Lisa_v2.mp4',cal:60000},
-    {id:52, openid:62,url:'http://localhost:5000/Test_Manman_203.mp4',cal:120000},
-    {id:53,openid:63, url:'http://localhost:5000/Yoga_Lezai_v2.mp4',cal:40000}
+    {id:50,openid:60, url:'http://localhost:5000/BA_Laura_v2.mp4', cal:150},
+    {id:51,openid:61, url:'http://localhost:5000/BC_Lisa_v2.mp4',cal:60},
+    {id:52, openid:62,url:'http://localhost:5000/Yoga_Lezai_v2.mp4',cal:120},
+    {id:53,openid:63, url:'http://localhost:5000/Zumba_Lisa_v2.mp4',cal:40}
   ]
   videoUrl:string = ''
   preload:string = 'auto';
   api:VgAPI;
   userList:Array<Object> = [
-    {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'Adsend'},
-    {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'Efljy'},
-    {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'dddff'},
-    {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'Adstndds'},
-    {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'fgllhh'},
-    {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'sfyds'},
-    {img:'https://img.cdn.powerpower.net/5e202c1ae4b0e8c8916c0773.png',name:'dfhghgh'},
+    {img:'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJCiaBWEhhsicQZnUIBXYqDGsntaLVRsgCfIKqIm2CO17601mcrVzOxME7HsV84Ie7ku1Io54n1EcGw/132',name:'仙儿'},
+    {img:'https://wx.qlogo.cn/mmhead/ibdowAJc1Mp3IRPxhO4ywC1hXAq2gSqYexoQeuTNjocA/132',name:'yell键'},
+    {img:'https://thirdwx.qlogo.cn/mmopen/icMcvFxAcaBAjgaJxJRgibWWiapG9EaySqF26D8uQRlfxokm7skSbzgViaUQoRA2ET7urS8fWPEXcmNicoYUibpiakhnltqW29L2JZ2/132',name:'Swikinini'},
+    {img:'https://wx.qlogo.cn/mmopen/vi_32/xCuSHusxZP9DmEYmvcHTJ6n8sjeOUAnRrrFhP7XUCwZmtjZh6Hn26SKXjgzibNEwypw1MLjic1j6m1br2jGFCfPg/132',name:'console.log'},
+    {img:'https://wx.qlogo.cn/mmhead/gGOplQlWUI7Zic3licKvzpoia2GYc5Sq77hxZZwxpkYHhg/132',name:'林木康'},
+    {img:'https://wx.qlogo.cn/mmhead/nF9pJiaFKZibboAyNghy3Rh9WianN6fhdQJd2Q38M7K0Ic/132',name:'li惠茹'},
+    {img:'https://wx.qlogo.cn/mmopen/vi_32/tWs2GslLYqe1s3Ryh6914uYGlauTdF0t9aW1glqElru0sMTyrIs5biaOFK6XBIjfzicyWpZNVsROfwhBqx9ZVn4w/132',name:'Ellasa'},
+    {img:'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKoOmEwlmMScWfnDDj13EXWfwU8ZkUNBsmibRoGvzMhUyZDTcSIZIS3xYAdJBkAa2ia7E6tjloOEHicg/132',name:'萌子'},
+    {img:'https://thirdwx.qlogo.cn/mmopen/icMcvFxAcaBAjgaJxJRgibWQ3eBvF5JAakzmGe15Dn8rzh7zopsOhOzRdRKxnIYzwdoeIkrt9WG2S8VJ3VJLGofjXcsea7tTgK/132',name:'沉默de岁月'},
+
+    {img:'https://thirdwx.qlogo.cn/mmopen/ajNVdqHZLLAc0V7jK0k5AHgN5thOZdy6FbfuIv7YQI4cFzpniaIicialym1Mia2lPy9xgAq8lRiaIplwO4N5CT9fdRoPtYRYvIMEE0wLKKo4ic9Ro/132',name:'国盼'},
   ];
+  roundUseList:any = [
+    {img:'https://wx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJCiaBWEhhsicQZnUIBXYqDGsntaLVRsgCfIKqIm2CO17601mcrVzOxME7HsV84Ie7ku1Io54n1EcGw/132',name:'仙儿'},
+    {img:'https://wx.qlogo.cn/mmhead/ibdowAJc1Mp3IRPxhO4ywC1hXAq2gSqYexoQeuTNjocA/132',name:'yell键'},
+    {img:'https://thirdwx.qlogo.cn/mmopen/icMcvFxAcaBAjgaJxJRgibWWiapG9EaySqF26D8uQRlfxokm7skSbzgViaUQoRA2ET7urS8fWPEXcmNicoYUibpiakhnltqW29L2JZ2/132',name:'Swiki'},
+    {img:'https://wx.qlogo.cn/mmopen/vi_32/xCuSHusxZP9DmEYmvcHTJ6n8sjeOUAnRrrFhP7XUCwZmtjZh6Hn26SKXjgzibNEwypw1MLjic1j6m1br2jGFCfPg/132',name:'console.log'},
+    {img:'https://wx.qlogo.cn/mmhead/gGOplQlWUI7Zic3licKvzpoia2GYc5Sq77hxZZwxpkYHhg/132',name:'林木康'},
+  ]
   changeFontSize:any = this.rem(46)
   timeDown:number = 5 //视频倒计时
    
@@ -61,25 +72,43 @@ export class TrainingPage implements OnInit {
   totalCal:number = 0
   targetCal:any
   trainTime:any
+  watchCount:any = 5
   //收集bpm序列
   allBpmCollect:any = []
 
   //BPM目标段区间配置值
   BPMdurTarget:Array<any> = [
-    [10,40],
-    [30,80],
-    [50,90],
-    [20,80],
-    [40,90],
+    [60,100],
+    [70,120],
+    [60,100],
+    [80,110],
+    [70,90],
+    [80,100],
+    [80,90],
+    [70,110],
+    [80,100],
+    [85,110],
+    [90,120],
+    [80,110],
+    [80,120],
+    [70,100],
     [50,100],
-    [50,90],
-    [20,80],
-    [40,90],
-    [40,90],
-    [50,100],
-    [50,90],
-    [20,80],
-    [40,90],
+    [85,110],
+    [90,120],
+    [80,100],
+    [85,110],
+    [90,120],
+    [80,110],
+    [80,120],
+    [70,100],
+    [70,120],
+    [80,100],
+    [85,110],
+    [90,120],
+    [80,110],
+    [80,120],
+    [70,100],
+    [60,100],
   ]
 
   progressReptObj: Object = {
@@ -92,7 +121,7 @@ export class TrainingPage implements OnInit {
   collectArr: any 
   volumeState:boolean = false
   timerObj:any
-
+  timer:any
   @ViewChild("myProgress", {static:true}) myprogress: any;
   constructor(
     public nativeService: nativeService,
@@ -129,6 +158,7 @@ export class TrainingPage implements OnInit {
     this.api.play()
     this.computeBPMdur()
     this.computeCal()
+    this.compWatchCount()
   }
   onPlayerReady(api:VgAPI) {
     this.api = api;
@@ -148,18 +178,17 @@ export class TrainingPage implements OnInit {
       (a)=>{
         console.log('canPlayThrough--视频缓冲完成')
         this.timeDownMethod()
-        // this.api.play()
       }
     )
     //视频over
     this.api.getDefaultMedia().subscriptions.ended.subscribe(
       () => {
           console.log('video-over')
+          clearInterval(this.timer)
           utils.sessionStorageSetItem('allCollectBpm',this.allBpmCollect)
           utils.sessionStorageSetItem('allCal',this.totalCal)
           utils.sessionStorageSetItem('trainTime',this.trainTime)
           this.blue.completeTraining() //回调完成
-          this.blue.Stop()  //暂停监听
           this.api.getDefaultMedia().currentTime = 0 //视频重启
           this.blue.unRegisterListener('training')
           this.nav.navigateForward('/traincomplete')
@@ -226,22 +255,53 @@ export class TrainingPage implements OnInit {
                                               this.BPMRange,)
                                               this.updataSyncFun()
   }
+  // 计算当前观看人数
+  compWatchCount(){
+    setInterval(() => {
+      this.watchCount = Math.floor((Math.random()*100)+5);
+      this.roundUseList = this.getRandomArray(this.userList, Math.floor(Math.random() * 3 ) + 5)
+    },15000)
+  }
+  getRandomArray(arr,num){
+    //新建一个数组,将传入的数组复制过来,用于运算,而不要直接操作传入的数组;
+    var temp_array = new Array();
+    for (var index in arr) {
+        temp_array.push(arr[index]);
+    }
+    //取出的数值项,保存在此数组
+    var return_array = new Array();
+    for (var i = 0; i<num; i++) {
+        //判断如果数组还有可以取出的元素,以防下标越界
+        if (temp_array.length>0) {
+            //在数组中产生一个随机索引
+            var arrIndex = Math.floor(Math.random()*temp_array.length);
+            //将此随机索引的对应的数组元素值复制出来
+            return_array[i] = temp_array[arrIndex];
+            //然后删掉此索引的数组元素,这时候temp_array变为新的数组
+            temp_array.splice(arrIndex, 1);
+        } else {
+            break;
+        }
+    }
+    return return_array;
+  }
   // 计算kal
   computeCal(){
-    // this.targetCal = 15000
-    console.log('computeCal',this.api, this.api.duration)
-    this.totalCal = 0
-    let timeItemCal = parseInt((this.targetCal / this.api.duration).toFixed(0))
+    // this.targetCal = 50
+    let totalCalComp = 0
+    let timeItemCal = (this.targetCal / this.api.duration)
+    console.log('computeCal',this.api.duration,timeItemCal,)
+
     let a = (this.api.duration/60).toFixed(2)
     this.trainTime = a.replace(a[a.indexOf('.')],':')
-
-    let timer = setInterval(()=>{
-      if(this.totalCal > this.targetCal){
-        clearInterval(timer)
+    this.timer = setInterval(()=>{
+      if(totalCalComp > this.targetCal){
+        clearInterval(this.timer)
       } else {
-        this.totalCal += timeItemCal
-        if(this.totalCal > 1000){
-          this.changeFontSize = this.rem(38)
+        totalCalComp += timeItemCal
+        this.totalCal = parseInt(totalCalComp.toFixed(0))
+        if(totalCalComp > 1000){
+         this.changeFontSize = this.rem(38)
        } else {
          this.changeFontSize = this.rem(46)
        }
@@ -332,10 +392,11 @@ export class TrainingPage implements OnInit {
          //  监听返回
          if(message.action == 20){ //显示视频列表
             that.api.getDefaultMedia().currentTime = 0 //视频重启
+            that.blue.unRegisterListener('training')
+            clearInterval(that.timer)
             that.ngZone.run(() => {
               that.nav.navigateForward(['/index'],{ queryParams:{ id:'list'} })
             })
-            // that.blue.unRegisterListener('training')
          }
        }
        if(message.type == 'data'){ 

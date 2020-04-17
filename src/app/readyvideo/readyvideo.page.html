@@ -12,7 +12,7 @@
 <div id="content">
   <img [src] = 'srcImg' alt="">
   <div class="mask"></div>
-  <div class="continer">
+  <div class="continer" *ngIf="videoCurrentInfo">
     <div class="videoTitle">{{videoCurrentInfo.coursename}}</div>
     <div class="videoName">教练：{{videoCurrentInfo.coach}}</div>
  
