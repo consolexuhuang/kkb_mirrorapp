@@ -40,6 +40,7 @@ export class ReadyvideoPage implements OnInit {
     }
     // this.ref.detectChanges();
   }
+  // 镜子上这页面第一次初始化的时候会出现不执行ionViewWillEnter
   ionViewWillEnter(){
     this.StartCommandListener()
     console.log('ionViewWillEnter-readyvideo',utils.localStorageGetItem('videoCurrentId'))
@@ -51,6 +52,7 @@ export class ReadyvideoPage implements OnInit {
       }
     }
   }
+  //镜子非第一次初始化的时候会不执行ngOnInit
   ngOnInit() {
     this.StartCommandListener()
     console.log('mirrorVideoState--init',utils.localStorageGetItem('videoCurrentId'))
